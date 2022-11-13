@@ -1,0 +1,3 @@
+[submodule "MuxLink/pytorch_DGCNN"]
+	path = MuxLink/pytorch_DGCNN
+	url = https://github.com/muhanzhang/pytorch_DGCNN
