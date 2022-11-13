@@ -9,9 +9,11 @@ MuxLink is a link prediction-based attack on learning resilient logic locking. T
 **Contact**
 Lilas Alrahis (lma387@nyu.edu)
 ### Setup
-1) ```sh
+1) 
+```sh
 $ ./setup.sh
 ```
+
 2) Install [PyTorch](https://pytorch.org/)
 
 ### Usage
