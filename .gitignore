@@ -1,0 +1,4 @@
+pytorch_DGCNN
+data
+*.txt
+__pycache__

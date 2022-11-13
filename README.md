@@ -9,16 +9,10 @@ MuxLink is a link prediction-based attack on learning resilient logic locking. T
 **Contact**
 Lilas Alrahis (lma387@nyu.edu)
 ### Setup
-#### Step 1: Install the default GNN model (i.e., DGCNN)
-```sh
-$ git clone https://github.com/muhanzhang/pytorch_DGCNN
-$ cd pytorch_DGCNN/lib
-$ make -j4
-$ cd ../..
+1) ```sh
+$ ./setup.sh
 ```
-#### Step 2: Install Required Packages
-1) Install [PyTorch](https://pytorch.org/)
-2) Install numpy, scipy, networkx, tqdm, sklearn, gensim
+2) Install [PyTorch](https://pytorch.org/)
 
 ### Usage
 #### Attacking DMUX
@@ -43,8 +37,8 @@ $ python Main.py --file-name c1908_K32_DMUX --train-name links_train.txt  --test
 ```
 ***3) Get the predictions***
 ```sh
-$ python Main.py  --file-name c1908_DMUX_K32 --train-name links_train.txt  --test-name links_test.txt --hop 3  --only-predict > Log_pos_predict_c1908_DMUX_K32.txt
-$ python Main.py  --file-name c1908_DMUX_K256 --train-name links_train.txt  --test-name  link_test_n.txt --hop 3  --only-predict > Log_neg_predict_c1908_DMUX_K32.txt
+$ python Main.py  --file-name c1908_K32_DMUX --train-name links_train.txt  --test-name links_test.txt --hop 3  --only-predict > Log_pos_predict_c1908_DMUX_K32.txt
+$ python Main.py  --file-name c1908_K32_DMUX --train-name links_train.txt  --test-name  link_test_n.txt --hop 3  --only-predict > Log_neg_predict_c1908_DMUX_K32.txt
 ```
 - The likelihoods for the links will be dumped in `links_test_3__pred.txt` and `link_test_n_3__pred.txt`. Here, `3` represents the hop size
 
@@ -54,6 +48,11 @@ $ python Main.py  --file-name c1908_DMUX_K256 --train-name links_train.txt  --te
 ```
 - Here, 0.01 is the  threshold value (th) explained in the paper. it can be between 0 and 1.
 - 3 represents the hop size.
+
+***5) Clean up artifacts (Prepare for future experiments)***
+ ```sh
+$ ./cleanup.sh
+```
 ### Citation & Acknowledgement
 If you find the code useful, please cite our paper:
 * MuxLink 2022:
