@@ -53,7 +53,7 @@ while (<FH>) {
     push @{ $connect_to{ $columns[1] } },       $columns[0] . " " . $columns[1];
 }
 close(FH);
-
+print("./data/${file_name}/${bench}_K${key_size}.bench\n");
 open( FH, '<', "./data/${file_name}/${bench}_K${key_size}.bench" ) or die $!;
 while (<FH>) {
     my $line = $_;
@@ -64,15 +64,14 @@ while (<FH>) {
     if ( $line =~ m/keyinput/ && !( $line =~ m/INPUT/ ) ) {
         chomp $line;
         if ( $line =~
-#/^\s*(\S+)_from_mux\s*\=\s*MUX\(keyinput(\d+)\s*\,\s*(\S+)\s*\,\s*(\S+)\s*\)$/
- /^\s*(\S+)_from_mux(_\d)*\s*\=\s*(MUX|mux)\(keyinput(\d+)\s*\,\s*(\S+)\s*\,\s*(\S+)\s*\)$/
+/^\s*(\S+)_from_mux\s*\=\s*(MUX|mux)\(keyinput(\d+)\s*\,\s*(\S+)\s*\,\s*(\S+)\s*\)$/
           )
         {
-#if ($line=~/^\s*(\S+)_from_mux\s*\=\s*mux\(keyinput(\d+)\s*\,\s*(\S+)\s*\,\s*(\S+)\s*\)$/){
             my $output  = $1;
-            my $key_bit = $4;#$2;
-            my $path0   = $5;#$3;
-            my $path1   = $6;#$4;
+            my $key_bit = $3;
+            my $path0   = $4;
+            my $path1   = $5;
+            #print "$1 $2 $3 $4";
             push @{ $key_bits{$key_bit} }, "$output $path0 $path1";
 
         }
@@ -160,8 +159,10 @@ foreach my $key ( keys %key_bits ) {
                     $dec_key_bits{$key}     = "X";
                     $dec_key_bits{$key_two} = "X";
                 }
-                next;
+                #next;
             }
+                ##print " --- $key: $dec_key_bits{$key}\n";
+                ##print " --- $key_two: $dec_key_bits{$key_two}\n";
         }
         if ( $flag == 0 ) {
             if ( $dif >= $th ) {
@@ -180,7 +181,6 @@ foreach my $key ( keys %key_bits ) {
         my $lik1_two =
           $connect_from_all{ $cells{$path1} . " " . $cells{$output_two} };
         my $dif2 = abs( $lik0_two - $lik1_two );
-        print "$key";
         if ( $dif >= $th || $dif2 >= $th ) {
             if ( $dif > $dif2 ) {
                 if ( $lik0 > $lik1 ) {
@@ -224,6 +224,7 @@ my $un     = 0;
 my $w      = 0;
 my $c      = 0;
 my $report = "";
+print "Key size is $key_size\n";
 print "KEY=";
 while ( $i < $key_size ) {
     my $true = substr( $correct_key, $i, 1 );
@@ -246,8 +247,6 @@ print "\n";
 my $accuracy = $c / $key_size;
 my $prec     = ( $c + $un ) / $key_size;
 my $kpa      = $c / ( $key_size - $un );
-
-#my $kpa=0;
 print "Correct key-bits are $c, wrong key-bits are $w, and tie are $un\n";
 print "$accuracy $prec $kpa\n";
 print "Acc. $accuracy, Prec. $prec, KPA $kpa\n";
