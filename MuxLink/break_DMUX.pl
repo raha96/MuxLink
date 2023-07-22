@@ -73,7 +73,6 @@ while (<FH>) {
             my $path1   = $5;
             #print "$1 $2 $3 $4";
             push @{ $key_bits{$key_bit} }, "$output $path0 $path1";
-
         }
 
     }
@@ -219,6 +218,17 @@ foreach my $key ( keys %key_bits ) {
         }
     }
 }
+
+####### RMS #######
+my $i = 0;
+while ($i < $key_size) {
+    if ($dec_key_bits{$i} eq "") {
+        $dec_key_bits{$i} = "X";
+    }
+    $i++;
+}
+####### RMS #######
+
 my $i      = 0;
 my $un     = 0;
 my $w      = 0;
