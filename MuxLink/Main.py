@@ -163,7 +163,7 @@ if args.only_predict:
 
 
 cmd_args.printAUC = True
-cmd_args.num_epochs = 100
+cmd_args.num_epochs = 40
 cmd_args.dropout = True
 cmd_args.num_class = 2
 cmd_args.mode = 'gpu' if args.cuda else 'cpu'
